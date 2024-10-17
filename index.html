@@ -1,17 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <script defer src="https://unpkg.com/alpinejs"></script>
+    <title>Nouvelles de Warframe</title>
+    <script
+      defer
+      src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+    <link rel="stylesheet" href="assets/css/style.css" />
   </head>
   <body>
     <nav>
-      <a href="index.html">accueil</a>
       <ul>
-        <li><a href=""></a></li>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="index.html">Accueil</a></li>
       </ul>
     </nav>
+
+    <div x-data="warframeNews()" x-init="fetchNews()">
+      <h2>Nouvelles de Warframe (PC)</h2>
+      <template x-for="newsItem in news" :key="newsItem.id">
+        <div class="news-item">
+          <h3>
+            <a
+              x-bind:href="newsItem.link"
+              x-text="newsItem.message"
+              target="_blank"
+            ></a>
+          </h3>
+          <p x-text="formatDate(newsItem.date)"></p>
+        </div>
+      </template>
+    </div>
+
+    <script src="assets/js/news.js"></script>
   </body>
 </html>

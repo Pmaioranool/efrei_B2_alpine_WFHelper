@@ -67,13 +67,12 @@ Ce projet est sous licence MIT. Vous êtes libres de l'utiliser, le modifier et 
 3. drop source / item data
 4. news
 5. nightwaves challenges
-
-7. prime resurgence = varzia
-8. liste des event
-9. void trader -> baroo kiteer -> objets ->temps // void traders -> ancient baroo  -> objets -> date
-10. alertes
+6. prime resurgence = varzia
+7. liste des event
+8. void trader -> baroo kiteer -> objets ->temps // void traders -> ancient baroo  -> objets -> date
+9. alertes
 arbitration
 archon hunt
 deep Archimedea 
 sorties
-11. player profile
+10. player profile
