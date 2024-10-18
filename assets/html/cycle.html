@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Warframe Cycles</title>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body>
+    <nav>
+      <ul>
+        <li><a href="../../index.html">Accueil</a></li>
+        <li><a href="cycle.html">Cycles zones ouvertes</a></li>
+        <li><a href="index.html">Autre Accueil</a></li>
+      </ul>
+    </nav>
+
+    <div
+      x-data="{
+        platform: 'pc',
+        mondes: { 'cetusCycle': 'Cetus', 'vallisCycle': 'Vallée Orbis', 'cambionCycle': 'Puy de Cambion' },
+        data: null,
+        notifyUser(platform, monde) {
+          if (!('Notification' in window)) {
+            alert('Ce navigateur ne supporte pas les notifications.');
+          } else if (Notification.permission === 'granted') {
+            new Notification(`Le cycle de ${monde} sur ${platform} est passé.`);
+          } else if (Notification.permission !== 'denied') {
+            Notification.requestPermission().then(function (permission) {
+              if (permission === 'granted') {
+                new Notification('Notification activée avec succès !');
+              }
+            });
+          }
+        },
+        fetchNews(monde) {
+          fetch(`https://api.warframestat.us/${this.platform}/${monde}`)
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error(`Erreur: ${response.statusText}`);
+              }
+              return response.json();
+            })
+            .then((data) => {
+              console.log(data); // Log the full response to inspect its structure
+              this.data = data; // Update the data property with the fetched data
+            })
+            .catch((error) => {
+              console.error(`Erreur lors de la récupération des données pour ${monde}:`, error);
+            });
+        },
+        timer(data,platform,monde,state){
+          if(data.state == state){
+          alert(deja );
+        }else{
+        }
+        }
+      }"
+      x-init="fetchNews('cetusCycle')"
+    >
+      <div>
+        <button type="button" @click="platform = 'pc'   ">PC</button>
+        <button type="button" @click="platform = 'xb1'">XBOX</button>
+        <button type="button" @click="platform = 'ps4'">PlayStation</button>
+        <button type="button" @click="platform = 'swi' ">Switch</button>
+      </div>
+
+      <div>
+        <template x-for="(monde, key1) in mondes" :key="key1">
+          <button
+            type="button"
+            @click="timer(data,platform, monde,state); fetchNews(key1)"
+            x-text="monde"
+          ></button>
+        </template>
+
+        <template x-if="data ">
+          <div>
+            <p x-text="'State: ' + data.state"></p>
+            <p x-text=" data.shortString"></p>
+          </div>
+        </template>
+      </div>
+    </div>
+  </body>
+</html>

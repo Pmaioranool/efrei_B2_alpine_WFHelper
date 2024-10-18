@@ -62,17 +62,17 @@ Ce projet est sous licence MIT. Vous êtes libres de l'utiliser, le modifier et 
 # choses a faire 
 
 
-1. notification pour cycle ->cetus ->nekralisk ->orbis
-2. prix moyen du market d'un objet sur x premier et x dernier
-3. drop source / item data
-4. news
-5. nightwaves challenges
-6. prime resurgence = varzia
-7. liste des event
-8. void trader -> baroo kiteer -> objets ->temps // void traders -> ancient baroo  -> objets -> date
-9. alertes
+- [ ] notification pour cycle ->cetus ->nekralisk ->orbis
+- [ ] prix moyen du market d'un objet sur x premier et x dernier
+- [ ] drop source / item data
+- [x] news
+- [ ] nightwaves challenges
+- [ ] prime resurgence = varzia
+- [ ] liste des event
+- [ ] void trader -> baroo kiteer -> objets ->temps // void traders -> ancient baroo  -> objets -> date
+- [ ] alertes
 arbitration
 archon hunt
 deep Archimedea 
 sorties
-10. player profile
+- [ ] player profile

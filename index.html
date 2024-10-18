@@ -4,17 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Nouvelles de Warframe</title>
-    <script
-      defer
-      src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"
-    ></script>
+    <script defer src="https://unpkg.com/alpinejs"></script>
     <link rel="stylesheet" href="assets/css/style.css" />
   </head>
   <body>
     <nav>
       <ul>
         <li><a href="index.html">Accueil</a></li>
-        <li><a href="index.html">Accueil</a></li>
+        <li><a href="assets/html/cycle.html">cycles zones ouvertes</a></li>
         <li><a href="index.html">Accueil</a></li>
       </ul>
     </nav>
@@ -35,6 +32,37 @@
       </template>
     </div>
 
-    <script src="assets/js/news.js"></script>
+    <script>
+      function warframeNews() {
+        return {
+          news: [],
+          fetchNews() {
+            fetch("https://api.warframestat.us/pc/news")
+              .then((response) => {
+                if (!response.ok) {
+                  throw new Error("Erreur de réseau");
+                }
+                return response.json();
+              })
+              .then((data) => {
+                this.news = data;
+              })
+              .catch((error) => {
+                console.error(
+                  "Erreur lors de la récupération des données : ",
+                  error
+                );
+              });
+          },
+          formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleString("fr-FR", {
+              dateStyle: "medium",
+              timeStyle: "short",
+            });
+          },
+        };
+      }
+    </script>
   </body>
 </html>
