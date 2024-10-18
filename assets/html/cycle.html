@@ -19,7 +19,7 @@
       </ul>
     </nav>
 
-    <div
+    <section
       x-data="{
         platform: 'pc',
         mondes: { 'cetusCycle': 'Cetus', 'vallisCycle': 'Vallée Orbis', 'cambionCycle': 'Puy de Cambion' },
@@ -54,10 +54,7 @@
             });
         },
         timer(data,platform,monde,state){
-          if(data.state == state){
-          alert(deja );
-        }else{
-        }
+          
         }
       }"
       x-init="fetchNews('cetusCycle')"
@@ -73,7 +70,7 @@
         <template x-for="(monde, key1) in mondes" :key="key1">
           <button
             type="button"
-            @click="timer(data,platform, monde,state); fetchNews(key1)"
+            @click="timer(data,platform, monde); fetchNews(key1)"
             x-text="monde"
           ></button>
         </template>
@@ -85,6 +82,6 @@
           </div>
         </template>
       </div>
-    </div>
+    </section>
   </body>
 </html>
