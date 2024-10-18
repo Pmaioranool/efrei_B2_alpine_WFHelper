@@ -16,21 +16,21 @@
       </ul>
     </nav>
 
-    <div x-data="warframeNews()" x-init="fetchNews()">
+    <section x-data="warframeNews()" x-init="fetchNews()">
       <h2>Nouvelles de Warframe (PC)</h2>
       <template x-for="newsItem in news" :key="newsItem.id">
         <div class="news-item">
-          <h3>
-            <a
-              x-bind:href="newsItem.link"
-              x-text="newsItem.message"
-              target="_blank"
-            ></a>
-          </h3>
-          <p x-text="formatDate(newsItem.date)"></p>
+          <a x-bind:href="newsItem.link" target="_blank">
+            <h3 x-text="newsItem.message"></h3>
+
+            <img :src="newsItem.imageLink" alt="" />
+
+            <p x-text="newsItem.message"></p>
+            <p x-text="formatDate(newsItem.date)"></p>
+          </a>
         </div>
       </template>
-    </div>
+    </section>
 
     <script>
       function warframeNews() {
@@ -46,6 +46,7 @@
               })
               .then((data) => {
                 this.news = data;
+                this.news.reverse();
               })
               .catch((error) => {
                 console.error(
