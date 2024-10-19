@@ -4,10 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Warframe Cycles</title>
-    <script
-      defer
-      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
-    ></script>
+    <script defer src="https://unpkg.com/alpinejs"></script>
     <link rel="stylesheet" href="../css/style.css" />
   </head>
   <body>
@@ -15,73 +12,116 @@
       <ul>
         <li><a href="../../index.html">Accueil</a></li>
         <li><a href="cycle.html">Cycles zones ouvertes</a></li>
-        <li><a href="index.html">Autre Accueil</a></li>
       </ul>
     </nav>
 
-    <section
-      x-data="{
-        platform: 'pc',
-        mondes: { 'cetusCycle': 'Cetus', 'vallisCycle': 'Vallée Orbis', 'cambionCycle': 'Puy de Cambion' },
-        data: null,
-        notifyUser(platform, monde) {
-          if (!('Notification' in window)) {
-            alert('Ce navigateur ne supporte pas les notifications.');
-          } else if (Notification.permission === 'granted') {
-            new Notification(`Le cycle de ${monde} sur ${platform} est passé.`);
-          } else if (Notification.permission !== 'denied') {
-            Notification.requestPermission().then(function (permission) {
-              if (permission === 'granted') {
-                new Notification('Notification activée avec succès !');
-              }
-            });
-          }
-        },
-        fetchNews(monde) {
-          fetch(`https://api.warframestat.us/${this.platform}/${monde}`)
-            .then((response) => {
-              if (!response.ok) {
-                throw new Error(`Erreur: ${response.statusText}`);
-              }
-              return response.json();
-            })
-            .then((data) => {
-              console.log(data); // Log the full response to inspect its structure
-              this.data = data; // Update the data property with the fetched data
-            })
-            .catch((error) => {
-              console.error(`Erreur lors de la récupération des données pour ${monde}:`, error);
-            });
-        },
-        timer(data,platform,monde,state){
-          
-        }
-      }"
-      x-init="fetchNews('cetusCycle')"
-    >
-      <div>
-        <button type="button" @click="platform = 'pc'   ">PC</button>
-        <button type="button" @click="platform = 'xb1'">XBOX</button>
-        <button type="button" @click="platform = 'ps4'">PlayStation</button>
-        <button type="button" @click="platform = 'swi' ">Switch</button>
-      </div>
+    <section x-data="warframeApp()" x-init="init()">
+      <article>
+        <button type="button" @click="platform = 'pc'">
+          <h3>PC</h3>
+        </button>
+        <button type="button" @click="platform = 'xb1'">
+          <h3>XBOX</h3>
+        </button>
+        <button type="button" @click="platform = 'ps4'">
+          <h3>PlayStation</h3>
+        </button>
+        <button type="button" @click="platform = 'swi'">
+          <h3>Switch</h3>
+        </button>
+      </article>
 
-      <div>
-        <template x-for="(monde, key1) in mondes" :key="key1">
-          <button
-            type="button"
-            @click="timer(data,platform, monde); fetchNews(key1)"
-            x-text="monde"
-          ></button>
-        </template>
+      <section class="noMargin">
+        <article>
+          <template x-for="(monde, key1) in mondes" :key="key1">
+            <button
+              type="button"
+              @click="fetchNews(key1); timer(data,platform, monde)"
+            >
+              <h3 x-text="monde"></h3>
+            </button>
+          </template>
+        </article>
 
-        <template x-if="data ">
+        <template x-if="data">
           <div>
-            <p x-text="'State: ' + data.state"></p>
-            <p x-text=" data.shortString"></p>
+            <p x-text="'état: ' + data.state"></p>
+            <p x-text="data.shortString"></p>
           </div>
         </template>
-      </div>
+      </section>
     </section>
+
+    <script>
+      function warframeApp() {
+        return {
+          platform: "pc", // Default platform, can be changed dynamically
+          mondes: {
+            cetusCycle: "Cetus",
+            vallisCycle: "Vallée Orbis",
+            cambionCycle: "Puy de Cambion",
+          }, // Mondes de Warframe
+          data: null, // Data fetched from the API
+
+          init() {
+            // Initialize app, fetch data on load
+            this.fetchNews("cetusCycle"); // Default fetch for Cetus
+          },
+
+          notifyUser(platform, monde) {
+            if (!("Notification" in window)) {
+              alert("Ce navigateur ne supporte pas les notifications.");
+            } else if (Notification.permission === "granted") {
+              new Notification(
+                `Le cycle de ${monde} sur ${platform} est passé.`
+              );
+            } else if (Notification.permission !== "denied") {
+              Notification.requestPermission().then((permission) => {
+                if (permission === "granted") {
+                  new Notification("Notification activée avec succès !");
+                }
+              });
+            }
+          },
+
+          fetchNews(monde) {
+            fetch(`https://api.warframestat.us/${this.platform}/${monde}`)
+              .then((response) => {
+                if (!response.ok) {
+                  throw new Error(`Erreur: ${response.statusText}`);
+                }
+                return response.json();
+              })
+              .then((data) => {
+                this.data = data; // Store the fetched data
+                this.timer(data, this.platform, monde); // Trigger the timer function
+              })
+              .catch((error) => {
+                console.error(
+                  `Erreur lors de la récupération des données pour ${monde}:`,
+                  error
+                );
+              });
+          },
+
+          timer(data, platform, monde) {
+            const expiryDate = new Date(data.expiry); // Assuming 'expiry' is a valid date string
+            const now = new Date();
+
+            const timeDifference = expiryDate - now;
+            if (timeDifference <= 0) {
+              this.notifyUser(platform, monde); // If expired, notify the user
+            } else {
+              // If not expired yet, set a timeout to notify when the expiry date is reached
+              setTimeout(() => {
+                this.notifyUser(platform, monde);
+              }, timeDifference);
+            }
+          },
+        };
+      }
+
+      //marche a moitié
+    </script>
   </body>
 </html>

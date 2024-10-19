@@ -27,15 +27,12 @@ a {
 
 ul {
   display: flex;
-  justify-content: space-evenly;
   width: 100%;
   list-style-type: none;
   flex-wrap: wrap;
-  text-align: center;
-}
-
-li {
-  width: 100%;
+  justify-content: center;
+  height: 20%;
+  margin: 6%;
 }
 
 nav {
@@ -70,7 +67,9 @@ div {
   padding: 0.5%;
   border: 2px solid #7b7b7b;
   width: 31%;
+  text-align: center;
 }
+
 section {
   margin: 2%;
   margin-left: 18%;
@@ -79,22 +78,47 @@ section {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+  text-align: center;
+}
+
+article {
+  margin: 2%;
+  padding: 0.5%;
+  width: 100%;
+  display: flex;
 }
 
 h2 {
   width: 100%;
+  font-size: 2rem;
 }
 
 h3 {
   width: 100%;
+  font-size: 1.35rem;
 }
+
 p {
   width: 100%;
 }
+
 img {
   width: 100%;
   height: auto;
   overflow-y: hidden;
+  margin: 0.5%;
+}
+
+button {
+  margin: 2%;
+  padding: 2%;
+  background-color: #e4e4e4;
+  width: 100%;
+}
+
+button:hover {
+  background-color: #d3d3d3;
 }
 
 .news-item {
@@ -106,4 +130,8 @@ img {
 
 .hidden {
   display: none;
+}
+
+.noMargin {
+  margin: 0;
 }
