@@ -15,6 +15,7 @@ Cette application a été réalisée dans le cadre d'un projet académique pour 
   - [sources](#sources)
 - [Contributeurs](#contributeurs)
 - [Licence](#licence)
+- [choses a faire](#choses-a-faire)
 
 # Présentation
 
@@ -23,7 +24,7 @@ L'application permet de consulter diverses informations provenant du jeu Warfram
 
 # Fonctionnalités
 
-- envoie de 
+- 
 
 # technologie utilisées
 
@@ -56,3 +57,22 @@ Lucas (EFREI Villejuif, Bachelor 2ème année)
 
 # Licence
 Ce projet est sous licence MIT. Vous êtes libres de l'utiliser, le modifier et le distribuer.
+
+
+# choses a faire 
+
+
+1. notification pour cycle ->cetus ->nekralisk ->orbis
+2. prix moyen du market d'un objet sur x premier et x dernier
+3. drop source / item data
+4. news
+5. nightwaves challenges
+6. prime resurgence = varzia
+7. liste des event
+8. void trader -> baroo kiteer -> objets ->temps // void traders -> ancient baroo  -> objets -> date
+9. alertes
+arbitration
+archon hunt
+deep Archimedea 
+sorties
+10. player profile
