@@ -31,6 +31,8 @@
         </button>
       </article>
 
+
+      
       <section class="noMargin">
         <article>
           <template x-for="(monde, key1) in mondes" :key="key1">
@@ -50,6 +52,13 @@
           </div>
         </template>
       </section>
+
+
+      <button
+              type="button"
+              @click="notifyUser(platform,'cetusCycle');"
+            >
+              <h3>test notifications</h3>
     </section>
 
     <script>
